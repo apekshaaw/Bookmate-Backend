@@ -5,6 +5,4 @@ import com.example.demo.pojo.UserPojo;
 public interface UserService {
     void saveData(UserPojo userPojo);
     String login(UserPojo userPojo);
-    void updateProfile(UserPojo userPojo);
-    void changePassword(UserPojo userPojo);
 }

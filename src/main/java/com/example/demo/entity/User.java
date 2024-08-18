@@ -21,12 +21,6 @@ public class User {
     @Column(name="email", nullable=false)
     private String email;
 
-    @Column(name="fullName", nullable=false)
-    private String fullName;
-
     @Column(name="password", nullable=false)
     private String password;
-
-    @Column(name="profilePicture", nullable=true)
-    private String profilePicture;
 }

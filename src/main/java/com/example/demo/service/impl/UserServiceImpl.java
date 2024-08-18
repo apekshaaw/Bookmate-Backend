@@ -15,9 +15,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void saveData(UserPojo userPojo) {
+        // Check if user already exists
+        User existingUser = userRepository.findByEmail(userPojo.getEmail());
+        if (existingUser != null) {
+            throw new RuntimeException("User already exists");
+        }
+
         User user = new User();
         user.setEmail(userPojo.getEmail());
-        user.setFullName(userPojo.getFullName());
         user.setPassword(userPojo.getPassword());
 
         userRepository.save(user);
@@ -29,25 +34,7 @@ public class UserServiceImpl implements UserService {
         if (user != null && user.getPassword().equals(userPojo.getPassword())) {
             return "Login successful";
         } else {
-            return "Invalid credentials";
-        }
-    }
-
-    @Override
-    public void updateProfile(UserPojo userPojo) {
-        User user = userRepository.findByEmail(userPojo.getEmail());
-        if (user != null) {
-            user.setFullName(userPojo.getFullName());
-            userRepository.save(user);
-        }
-    }
-
-    @Override
-    public void changePassword(UserPojo userPojo) {
-        User user = userRepository.findByEmail(userPojo.getEmail());
-        if (user != null) {
-            user.setPassword(userPojo.getPassword());
-            userRepository.save(user);
+            throw new RuntimeException("Invalid email or password");
         }
     }
 }
